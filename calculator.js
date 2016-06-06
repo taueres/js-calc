@@ -18,8 +18,6 @@ function Calculator(cursor, display) {
    this.operation = '';
    this.result = 0;
    this.clear();
-
-   cursor.on('symbol.selected', this.onSymbol.bind(this));
 }
 
 Calculator.prototype.onSymbol = function (symbol) {
@@ -121,4 +119,8 @@ Calculator.prototype.clear = function () {
 
    this.status = STATUS_FIRST_OPERAND;
    this.isDecimal = false;
+};
+
+Calculator.prototype.listenToInput = function () {
+   this.cursor.on('symbol.selected', this.onSymbol.bind(this));
 };

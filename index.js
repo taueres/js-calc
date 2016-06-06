@@ -1,14 +1,10 @@
 'use strict';
 
 const terminal = require('terminal-kit').terminal;
-
 const stdin = process.stdin;
 const Cursor = require('./cursor');
 const Display = require('./display');
 const Calculator = require('./calculator');
-
-stdin.setRawMode(true);
-
 const calculatorTemplate =
 `
 +-----------------------+
@@ -24,6 +20,16 @@ const calculatorTemplate =
 +-----+-----+-----+-----+
 `;
 
+stdin.setRawMode(true);
+stdin.on('data', (buffer) => {
+   // Ctrl-C handler
+   const data = buffer.toString('hex');
+   if (data === '03') {
+      terminal.hideCursor(false);
+      process.exit(1);
+   }
+});
+
 terminal.hideCursor();
 terminal.bgBlack();
 terminal.white();
@@ -31,17 +37,7 @@ terminal.fullscreen();
 terminal(calculatorTemplate);
 terminal.moveTo(1, 1);
 
-var cursor = new Cursor(stdin, terminal);
-var display = new Display(terminal);
-var calculator = new Calculator(cursor, display);
-
-stdin.on('data', function (buffer) {
-   var x = buffer.toString('hex');
-
-   if (x === '03') {
-      terminal.hideCursor(false);
-      process.exit(1);
-   }
-
-   //console.log(x);
-});
+const cursor = new Cursor(stdin, terminal);
+const display = new Display(terminal);
+const calculator = new Calculator(cursor, display);
+calculator.listenToInput();

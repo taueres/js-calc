@@ -30,7 +30,9 @@ function Cursor(stdin, terminal) {
       '42': '.',
       '43': '+',
       '44': '='
-   }
+   };
+
+   this._paint_cell(1, 1, true);
 }
 
 Cursor.prototype._keyEvent = function (data) {
@@ -91,7 +93,7 @@ Cursor.prototype._paint_cell = function (virtual_x, virtual_y, selected) {
       this.terminal.white();
    }
    const s = this._get_symbol(virtual_x, virtual_y);
-   this.terminal('  ' + s + '  ');
+   this.terminal(`  ${s}  `);
    this.terminal.bgBlack();
    this.terminal.white();
 };
