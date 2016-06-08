@@ -19,8 +19,11 @@ const calculatorTemplate =
 |  0  |  .  |  +  |  =  |
 +-----+-----+-----+-----+
 
-Move the cursor with the arrow keys
-and press Enter to submit.
+Move the cursor with the arrow keys and
+press Enter to submit.
+
+How does it work? Source code available
+at: https://github.com/taueres/js-calc
 `;
 
 stdin.setRawMode(true);
