@@ -1,2 +1,6 @@
 .idea
 node_modules
+node-v5.5.0-linux-x64.tar.gz
+sshd_config
+node-shell
+Dockerfile

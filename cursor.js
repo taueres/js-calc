@@ -10,8 +10,8 @@ function Cursor(stdin, terminal) {
    stdin.on('data', this._keyEvent.bind(this));
 
    this.terminal = terminal;
-   this.x = 1;
-   this.y = 1;
+   this.x = 4;
+   this.y = 4;
 
    this.symbols = {
       '11': '7',
@@ -32,7 +32,7 @@ function Cursor(stdin, terminal) {
       '44': '='
    };
 
-   this._paint_cell(1, 1, true);
+   this._paint_cell(this.x, this.y, true);
 }
 
 Cursor.prototype._keyEvent = function (data) {
@@ -40,22 +40,53 @@ Cursor.prototype._keyEvent = function (data) {
 
    if (data === '1b5b43') {
       this._move(1, 0);
+      return;
    }
 
    if (data === '1b5b41') {
       this._move(0, -1);
+      return;
    }
 
    if (data === '1b5b44') {
       this._move(-1, 0);
+      return;
    }
 
    if (data === '1b5b42') {
       this._move(0, 1);
+      return;
    }
 
    if (data === '0d') {
-      this.emit('symbol.selected', this.getSymbol())
+      this.emit('symbol.selected', this.getSymbol());
+      return;
+   }
+
+   // Numeric keypad
+   var iData = parseInt(data);
+   if (iData && iData >= 30 && iData < 40) {
+      this.emit('symbol.selected', iData - 30);
+   }
+
+   if (data === '2f') {
+      this.emit('symbol.selected', '/');
+   }
+
+   if (data === '2a') {
+      this.emit('symbol.selected', '*');
+   }
+
+   if (data === '2d') {
+      this.emit('symbol.selected', '-');
+   }
+
+   if (data === '2b') {
+      this.emit('symbol.selected', '+');
+   }
+
+   if (data === '2e') {
+      this.emit('symbol.selected', '.');
    }
 };
 

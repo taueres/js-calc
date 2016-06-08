@@ -18,6 +18,9 @@ const calculatorTemplate =
 +-----+-----+-----+-----+
 |  0  |  .  |  +  |  =  |
 +-----+-----+-----+-----+
+
+Move the cursor with the arrow keys
+and press Enter to submit.
 `;
 
 stdin.setRawMode(true);
@@ -31,9 +34,9 @@ stdin.on('data', (buffer) => {
 });
 
 terminal.hideCursor();
+terminal.fullscreen();
 terminal.bgBlack();
 terminal.white();
-terminal.fullscreen();
 terminal(calculatorTemplate);
 terminal.moveTo(1, 1);
 

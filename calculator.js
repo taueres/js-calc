@@ -38,6 +38,11 @@ Calculator.prototype.onSymbol = function (symbol) {
             this.firstOperand = this.result;
          }
 
+         if (this.firstOperand === '') {
+            // Invalid input, discard
+            return;
+         }
+
          this.operation = symbol;
          this.status = STATUS_SECOND_OPERAND;
          this.isDecimal = false;
